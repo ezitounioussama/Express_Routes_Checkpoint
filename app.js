@@ -1,17 +1,17 @@
 const express = require("express");
 const app = express();
 const workingHours = require("./workingHours");
-
+app.set("view engine", "ejs");
 app.get("/", workingHours, (req, res) => {
-  res.send("<h1>Home page</h1>");
+  res.render("home");
 });
 
 app.get("/services", workingHours, (req, res) => {
-  res.send("<h1>Our Services</h1>");
+  res.render("services");
 });
 
 app.get("/contact", workingHours, (req, res) => {
-  res.send("<h1>Contact us</h1>");
+  res.render("contact");
 });
 
 const PORT = 3000;
