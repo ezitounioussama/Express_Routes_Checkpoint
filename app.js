@@ -2,15 +2,27 @@ const express = require("express");
 const app = express();
 const workingHours = require("./workingHours");
 app.set("view engine", "ejs");
-app.get("/", workingHours, (req, res) => {
+app.use(
+  "/public",
+  express.static(__dirname + "/public", {
+    setHeaders: function (res, path, stat) {
+      res.set("Content-Type", "text/css");
+    },
+  })
+);
+
+app.get("/", (req, res, next) => {
+  res.redirect("/Home");
+});
+app.get("/Home", workingHours, (req, res) => {
   res.render("home");
 });
 
-app.get("/services", workingHours, (req, res) => {
+app.get("/ourServices", workingHours, (req, res) => {
   res.render("services");
 });
 
-app.get("/contact", workingHours, (req, res) => {
+app.get("/contactUS", workingHours, (req, res) => {
   res.render("contact");
 });
 
